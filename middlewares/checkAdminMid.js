@@ -1,11 +1,11 @@
 //Se deberia requerir la base de datos para verificar si el usuario es admin
 const db=require('../database/models');
 
-function checkAdmin(req,res,next){
-    if(req.session.user){
+function checkAdminMid(req,res,next){
+    if(req.idUser){
         db.Usuario.findOne({
             where:{
-                roleID:1,
+                id: idUser,
             },
         })
         .then((user)=>{
@@ -21,7 +21,7 @@ function checkAdmin(req,res,next){
             console.log(error);
         })   
     } else{
-        res.status(400).json({message:"No tienes permisos para acceder a esta pagina"});
+        res.status(400).json({message:"No tienes un usuario registrado"});
     }
 }
 
