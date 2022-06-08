@@ -15,7 +15,7 @@ module.exports.validateToken = (req, res, next) => {
         req.user = verified;
         next();
     } catch (error) {
-        res.status(400).json({
+        res.status(403).json({
             message: "Token invalid"
         })
     }

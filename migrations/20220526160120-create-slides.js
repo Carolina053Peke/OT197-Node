@@ -19,12 +19,12 @@ module.exports = {
       },
       organizationId: {
         type: Sequelize.INTEGER,
-/*         references: {
-          model: 'Organization',
+         references: {
+          model: 'Organizations',
           key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL' */
+        onDelete: 'SET NULL' 
       },
       createdAt: {
         allowNull: false,

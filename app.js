@@ -18,6 +18,9 @@ const newsRouter = require('./routes/news');
 const commentsRouter = require('./routes/comments');
 const postRouter = require('./routes/post');
 const testimonialsRouter = require('./routes/testimonials');
+const activitiesRouter = require('./routes/activities');
+const organizationRouter = require('./routes/organization');
+
 
 const app = express();
 app.use(cors())
@@ -44,6 +47,8 @@ app.use('/news', newsRouter);
 app.use('/comments', commentsRouter);
 app.use('/post', postRouter);
 app.use('/testimonials', testimonialsRouter);
+app.use('/activities', activitiesRouter);
+app.use('/organization', organizationRouter);
 
 //Documentation endpoints
 swaggerDocs(app, 3000);
