@@ -4,11 +4,14 @@ const bcrypt = require("bcrypt");
 
 const { generateToken } = require("../../middlewares/auth.js");
 const sendEmail = require("../../templates/welcomeEmail");
+const imageUpload = require("../../helpers/S3.js");
+
 
 
 const usersController = {
-        create: (req, res) => {
-        
+    create: async (req, res) => {
+
+        const image = await imageUpload(req.body.photo)
         const errors = validationResult(req);
         // Validate errors
         if (!errors.isEmpty()) {
@@ -21,19 +24,20 @@ const usersController = {
                     let userToRegister = users.find(i => i.email == req.body.email)
                     if (userToRegister) {
                         return res.status(400).send("User already exist")
-                      
+
                     } else {
+
                         User.create({
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
                             email: req.body.email,
                             password: bcrypt.hashSync(req.body.password, 10),
-                            photo: req.body.photo,
+                            photo: image,
                             roleId: req.body.roleId,
                         })
                             .then((result) => {
                                 sendEmail(result.email)
-                                res.header('auth-token',generateToken(result)).status(200).json(
+                                res.header('auth-token', generateToken(result)).status(200).json(
                                     {
                                         id: result.id,
                                         firstName: result.firstName,

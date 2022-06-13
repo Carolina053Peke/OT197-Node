@@ -1,27 +1,36 @@
 const AWS = require('aws-sdk');
 const fs = require('fs');
 
-const access = new AWS.S3({
+const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_KEY_ID ,
     secretAccessKey: process.env.AWS_SECRET_KEY 
 }); 
+const imageUpload = async (base64) => {
 
-const uploadFile = async(file,extension)=>{
+    const base64Data = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+  
+    const type = base64.split(';')[0].split('/')[1];
+
     const params = {
-       Bucket: process.env.BUCKET ,
-       Key:`${new Date().getTime()}.${extension}`,
-       ContentType:`image/${extension}`,
-       Body:Buffer.from(file,'base64')
-   }
-    return new Promise((resolve,reject)=>{
-        access.upload(params,(error,data)=>{
-            if(error){
-               reject(error); 
-            }
-            resolve(data);
-        })
-    })
-    
-}
-
-module.exports = uploadFile;
+      Bucket: process.env.BUCKET,
+      Key: `${new Date().getTime()}.${type}`, 
+      Body: base64Data,
+      ACL: 'public-read',
+      ContentEncoding: 'base64', 
+      ContentType: `image/${type}` 
+    }
+  
+    let location = '';
+    let key = '';
+    try {
+      const { Location, Key } = await s3.upload(params).promise();
+      location = Location;
+      key = Key;
+    } catch (error) {
+    }
+  console.log(location)
+    return location;
+  
+  }
+  
+  module.exports = imageUpload;

@@ -1,13 +1,13 @@
-const uploadFile = require('../../helpers/S3');
+const imageUpload = require('../../helpers/S3.js');
 const { createSlidesDAO, getSlidesDAO, getFinalListDAO, getOneSlideDAO, editSlideDAO, deleteSlideDAO } = require('./dao');
 
 module.exports = {
     async uploadImage(req, res) {
         const { image, text, order, organizationId } = req.body;
-        const extension = image.substring("data:image/".length, image.indexOf(";base64"));
+      
         let newSlide;
         try {
-            const { Location: imageUrl } = await uploadFile(image, extension);
+            const { Location: imageUrl } = await imageUpload(image);
             const orderObt = await getFinalListDAO();
             newSlide = {
                 imageUrl,
