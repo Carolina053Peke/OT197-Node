@@ -536,6 +536,274 @@ module.exports.options = {
                     ]
                 }
             },
+            "/news": {
+                "post": {
+                    "tags": [
+                        "News"
+                    ],
+                    "summary": "Add a News to the ONG",
+                    "description": "",
+                    "operationId": "createNews",
+                    "consumes": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "News object that needs to be added to the ong",
+                            "required": true,
+                            "schema": {
+                                "$ref": "#/definitions/News"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "News created",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/News"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+                },
+                "get": {
+                    "tags": [
+                        "News"
+                    ],
+                    "summary": "List News to the ONG",
+                    "description": "",
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+
+                    "responses": {
+                        "200": {
+                            "description": "List",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/News"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+
+                },
+            },
+            "/news?page={page}": {
+                "get": {
+                    "tags": [
+                        "News"
+                    ],
+                    "summary": "Finds 10 news per page",
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "page",
+                            "in": "path",
+                            "description": "Page actual",
+                            "required": true,
+                            "type": "integer",
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/News"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "/news/{id}": {
+                "get": {
+                    "tags": [
+                        "News"
+                    ],
+                    "summary": "Find News by ID",
+                    "description": "",
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "description": "News id field is required",
+                            "required": true,
+                            "type": "integer",
+                        },
+                    ],
+
+                    "responses": {
+                        "200": {
+                            "description": "List",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/News"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+                },
+                "put": {
+                    "tags": [
+                        "News"
+                    ],
+                    "summary": "Update News by ID",
+                    "description": "",
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "description": "News id field is required",
+                            "required": true,
+                            "type": "integer",
+                        },
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "News object that needs to be added to the ong",
+                            "required": true,
+                            "schema": {
+                                "$ref": "#/definitions/News"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "List",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/News"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+                },
+                "delete": {
+                    "tags": [
+                        "News"
+                    ],
+                    "summary": "Delete News by ID",
+                    "description": "",
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "description": "News id field is required",
+                            "required": true,
+                            "type": "integer",
+                        },
+                    ],
+
+                    "responses": {
+                        "200": {
+                            "description": "List",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/News"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+                }
+            }
         },
             "securityDefinitions": {
                 "api_key": {
@@ -639,6 +907,34 @@ module.exports.options = {
                         "name": "Category 1",
                         "description": "The category 1 is for testing ",
                         "image": "cat-1.jpg",
+                    }
+                },
+                "News": {
+                    "type": "object",
+                    "required": [
+                        "name",
+                        "content",
+                        "image"
+                    ],
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                        },
+                        "content": {
+                            "type": "string",
+                        },
+                        "image": {
+                            "type": "string",
+                        },
+                        "categoryId":{
+                            "type": "integer"
+                        }
+                    },
+                    "example": {
+                        "name": "News 1",
+                        "content": "Example for New 1",
+                        "image": "news-1.jpg",
+                        "categoryId":"1"
                     }
                 }
             }
