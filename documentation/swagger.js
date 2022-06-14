@@ -803,7 +803,189 @@ module.exports.options = {
                         }
                     ]
                 }
-            }
+            },
+            "/testimonials": {
+                "post": {
+                    "tags": [
+                        "Testimonials"
+                    ],
+                    "summary": "Add a Testimonia to the ONG",
+                    "description": "",
+                    "operationId": "createTestimonial",
+                    "consumes": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "Testimonial object that needs to be added to the ong",
+                            "required": true,
+                            "schema": {
+                                "$ref": "#/definitions/Testimonials"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Testimonial created",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Testimonials"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+                },
+                "get": {
+                    "tags": [
+                        "Testimonials"
+                    ],
+                    "summary": "List Testimonials to the ONG",
+                    "description": "",
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+
+                    "responses": {
+                        "200": {
+                            "description": "List",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Testimonials"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+
+                },
+            },
+            "/testimonials/{id}": {
+                "put": {
+                    "tags": [
+                        "Testimonials"
+                    ],
+                    "summary": "Update Testimonials by ID",
+                    "description": "",
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "description": "Testimonials id field is required",
+                            "required": true,
+                            "type": "integer",
+                        },
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "News object that needs to be added to the ong",
+                            "required": true,
+                            "schema": {
+                                "$ref": "#/definitions/Testimonials"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "List",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Testimonials"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+                },
+                "delete": {
+                    "tags": [
+                        "Testimonials"
+                    ],
+                    "summary": "Delete Testimonials by ID",
+                    "description": "",
+                    "produces": [
+                        "application/json",
+                        "application/xml"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "description": "Testimonials id field is required",
+                            "required": true,
+                            "type": "integer",
+                        },
+                    ],
+
+                    "responses": {
+                        "200": {
+                            "description": "List",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Testimonials"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "Internal server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "api_key": [
+                                "write:member",
+                                "read:member"
+                            ]
+                        }
+                    ]
+                }
+            },
         },
             "securityDefinitions": {
                 "api_key": {
@@ -935,6 +1117,28 @@ module.exports.options = {
                         "content": "Example for New 1",
                         "image": "news-1.jpg",
                         "categoryId":"1"
+                    }
+                },
+                "Testimonials": {
+                    "type": "object",
+                    "required": [
+                        "name",
+                    ],
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                        },
+                        "content": {
+                            "type": "string",
+                        },
+                        "image": {
+                            "type": "string",
+                        }
+                    },
+                    "example": {
+                        "name": "Testimonial 1",
+                        "content": "Example for testimonial 1",
+                        "image": "testimonial-1.jpg"
                     }
                 }
             }
