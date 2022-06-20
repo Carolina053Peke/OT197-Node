@@ -1,5 +1,6 @@
 const db = require("../../models");
 const { validationResult } = require('express-validator');
+const pagination = require("../../utils/pages");
 
 module.exports = {
     /* Insert function of controller (create, delete, edit, etc.) */
@@ -112,4 +113,36 @@ module.exports = {
             })
             .catch(e => console.log(e))
     },
+    all:(req, res) => {
+        // Pagination
+        const QUAN_PER_PAGE = 10
+        let page = req.query.page
+        // if page exists
+        if(page){
+            pagination(req, res, page, db.News, QUAN_PER_PAGE, "news")
+        }
+        // if page doesn't exist, get all news
+        else{
+            db.News.findAll({
+                include: [{ association: "category" }]
+            })
+                .then(news => {
+                    if (news != null) {
+                        return res.json({
+                            ok: true,
+                            data: news,
+                            url: '/news',
+                        });
+                    } else {
+                        return res.json({
+                            ok: false,
+                            msg: 'New not found',
+                            url: '/news',
+                        });
+                    }
+                })
+                .catch(e => console.log(e))
+        }
+
+    }
 }

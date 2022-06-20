@@ -7,6 +7,9 @@ const { createNews , updateNews } = require('../middlewares/newsValidations')
     res.send('Test');
 });
  */
+/* GET all news */
+router.get('/',/*idAmin?  */newsController.all);
+
 /* GET news by id */
 router.get('/:id',/*idAmin?  */newsController.detail);
 
