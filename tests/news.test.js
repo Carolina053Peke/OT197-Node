@@ -231,7 +231,7 @@ describe("News", () => {
 
     /* PUT A NEWS BY ID WITH WRONG FIELDS */
     describe(`PUT /news/0`, () => {
-        it(`Test 12 - it should reject PUT the news for invalid fields`, async () => {
+        it(`Test 13 - it should reject PUT the news for invalid fields`, async () => {
             await chai
                 .request(server)
                 .put(`/news/${idToUpdate}`)
