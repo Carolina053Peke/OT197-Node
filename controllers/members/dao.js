@@ -9,9 +9,9 @@ module.exports = {
             where:{id:memberID}
         }
     )},
-    async getMemberDAO(id){
-        return await db.Members.findOne({
-            where:{id}
+    async getMemberDAO(memberID){
+        await db.Members.findOne({
+            where:{id:memberID}
         })
     },
     async getMembersDAO(condition){

@@ -1,4 +1,3 @@
-const { sequelize } = require("../../models");
 const db = require("../../models")
 
 module.exports ={
@@ -7,7 +6,7 @@ module.exports ={
     },
     async getAllDAOWithSlidesDAO(){
         return db.Organization.findAll({
-            attributes:['name','image','phone',"address"],
+            attributes:['name','image','phone','address','urlFacebook','urlInstagram','urlLinkedin'],
             include:[{
                 model:db.Slides,
                 order:[[db.Slides,'order',"desc"]],
@@ -17,5 +16,8 @@ module.exports ={
     },
     async createOrganizationDAO(organization){
         return db.Organization.create(organization);
+    },
+    async editOrganizationDAO(organization,idOrganization){
+        return await db.Organization.update(organization,{where:{id:idOrganization}});
     }
 }

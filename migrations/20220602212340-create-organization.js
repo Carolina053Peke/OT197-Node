@@ -33,6 +33,15 @@ module.exports = {
       aboutUsText: {
         type: Sequelize.STRING
       },
+      urlFacebook:{
+        type:Sequelize.STRING
+      },
+      urlLinkedin:{
+        type:Sequelize.STRING
+      },
+      urlInstagram:{
+        type:Sequelize.STRING
+      }, 
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
