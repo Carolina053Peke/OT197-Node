@@ -17,11 +17,11 @@ const authController = {
         if (user) {
             if (bcrypt.compareSync(req.body.password, user.password)) {
                 let token = generateToken(user)
-                res.send({user,token})
+                return res.send({user,token})
             }
-            res.status(401).send({ ok: false })
+            return res.status(401).send({ ok: false })
         }
-        res.status(401).send({ ok: false })
+        return res.status(401).send({ ok: false })
     },
     me: async (req, res) => {
         const token = req.headers["authorization"];

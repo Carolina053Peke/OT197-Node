@@ -6,7 +6,11 @@ module.exports = {
     async createMember(req, res) {
         const receivedMember = {
             name: req.body.name,
-            image: req.body.image
+            image: req.body.image,
+            facebookUrl:req.body.facebookUrl,
+            imageUrl:req.body.imageUrl,
+            linkedinUrl:req.body.linkedinUrl,
+            description:req.body.description
         }
         try {
             const memberCreated = await createMemberDAO(receivedMember);
@@ -22,14 +26,18 @@ module.exports = {
     },
     async deleteMember(req, res) {
         try {
-            const member = await getMemberDAO(req.params.id);
-            const deleted = await deleteMemberDAO(member.id);
-            return res.status(200).json({
-                message: "Member Deleted"
-            });
-        } catch (error) {
+            const deleted = await deleteMemberDAO(req.params.id);
+            if(deleted!=0){
+                return res.status(200).json({
+                    message: "Member Deleted"
+                });
+            }
             return res.status(404).json({
                 message: "Member not exist"
+            });
+        } catch (error) {
+            return res.status(500).json({
+                message: "Internal server error"
             });
         }
     },
@@ -71,11 +79,16 @@ module.exports = {
         }
     },
     async editMember(req, res) {
-        const { name, image } = req.body;
-        const Member = { name, image };
-        try {
-            await getMemberDAO(req.params.id);
-            const updateMember = await updateMemberDAO(req.params.id, Member)
+        const receivedMember = {
+            name: req.body.name,
+            image: req.body.image,
+            facebookUrl:req.body.facebookUrl,
+            imageUrl:req.body.imageUrl,
+            linkedinUrl:req.body.linkedinUrl,
+            description:req.body.description
+        }
+        try {         
+            const updateMember = await updateMemberDAO(req.params.id,receivedMember);
             if (updateMember != 0) {
                 return res.status(200).json({
                     message: "Member update"
